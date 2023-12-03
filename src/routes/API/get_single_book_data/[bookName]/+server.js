@@ -10,18 +10,18 @@ export const GET = async ({params}) => {
         let bookData = (await listAll(bookRef)).prefixes
         let bookParts = []
         bookData.forEach(part => {
-            bookParts.push(part.name)
+            bookParts.push({name: part.name})
         })
         returnObj = {
             msg: "success",
             status: 200,
-            data: bookParts
+            data: {bookParts}
         }
     }catch(err){
         returnObj = {
-            msg: "error",
-            status: 200,
-            data: []
+            msg: "Can not find the specified book",
+            status: 500,
+            data: null
         }
     }
     return json(returnObj)

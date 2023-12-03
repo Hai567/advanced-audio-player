@@ -9,18 +9,18 @@ export const GET = async function() {
         let booksData = (await listAll(allBooksRef, "")).prefixes
         booksData.forEach(book => {
             let bookPath = book.fullPath // Can be used as book's name as well
-            totalBooks.push({bookName: bookPath})
+            totalBooks.push({name: bookPath})
         })
         returnObj = {
             msg: "success",
             status: 200,
-            data: totalBooks
+            data: {books: totalBooks}
         }
     }catch(err){
         returnObj = {
-            msg: "error",
+            msg: "Can not find any book",
             status: 500,
-            data: []
+            data: null
         }
     }
     return json(returnObj)

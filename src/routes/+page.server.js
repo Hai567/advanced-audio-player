@@ -1,9 +1,11 @@
+import { error } from '@sveltejs/kit';
 export const load = async ({fetch}) => {
     let bookFetchingData = await (await fetch("/API/get_all_books")).json()
     if (bookFetchingData.status === 200){
-        let books = await bookFetchingData.books
-        return { status: 200, books }
+        return bookFetchingData.data
     }else{
-        return bookFetchingData
+        throw error (400, {
+            msg: "Can not find any book"
+        })
     }
 }

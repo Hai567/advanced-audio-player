@@ -1,22 +1,15 @@
 <script>
 	import { onMount } from "svelte";
     export let data
-    let isBookFetched = false
-    let books = []
+    console.log(data)
+    let books = data.books
+    import { capitalizeFirstLetterOfTheWord } from "$lib/helpers/capitalizeFirstLetterOfTheWord"
 
-    onMount(() => {
-        if (data.status == 200){
-            isBookFetched = true
-            books = data.data
-        }
-    })
 </script>
 
 <div>
-    {#if isBookFetched}
-        <h1>Books</h1>
-    {/if}
+    <h1>Books</h1>
     {#each books as book, i (i)}
-        <h1>{book.bookName}</h1>
+        <a href="/audiobook/{book.name}"><h1>{capitalizeFirstLetterOfTheWord(book.name.replaceAll("_", " "))}</h1></a>
     {/each}
 </div>
