@@ -4,18 +4,18 @@ import { ref, listAll } from "firebase/storage"
 
 export const GET = async ({params}) => {
     let returnObj = {}
-    let requestedBookName = params.bookName
-    let bookRef = ref(storage, requestedBookName)
+    let requestedSeriesName = params.seriesName
+    let bookRef = ref(storage, requestedSeriesName)
     try{
         let bookData = (await listAll(bookRef)).prefixes
-        let bookParts = []
-        bookData.forEach(part => {
-            bookParts.push({name: part.name})
+        let books = []
+        bookData.forEach(book => {
+            books.push({name: book.name})
         })
         returnObj = {
             msg: "success",
             status: 200,
-            data: {bookParts}
+            data: {books}
         }
     }catch(err){
         returnObj = {

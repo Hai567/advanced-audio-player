@@ -4,12 +4,13 @@ import { ref, getDownloadURL } from "firebase/storage"
 
 export const GET = async ({params}) => {
     let returnObj = {}
+    let requiredSeriesName = params.seriesName
     let requiredBookName = params.bookName
     let requiredChapter = params.chapter
     let requiredAudioString = params.audioString
 
     try {
-        let requiredAudioRef = ref(storage, `/${requiredBookName}/${requiredChapter}/${requiredAudioString.replaceAll("_", " ")}`)
+        let requiredAudioRef = ref(storage, `/${requiredSeriesName}/${requiredBookName}/${requiredChapter}/${requiredAudioString}`)
         let audioUrl = await getDownloadURL(requiredAudioRef)
         returnObj = {
             msg: "Success",

@@ -1,8 +1,8 @@
-import { db } from "$lib/firebase/firebaseConfig"
-import { doc, updateDoc } from "firebase/firestore"
+import { updateDoc } from "firebase/firestore"
+import {generateAudioRef} from "$lib/helpers/generateAudioRef"
 
 export const POST = async function({request}) {
-    let playbackData = await request.json()
-    await updateDoc(doc(db, "user", "danielHo"), playbackData)
+    let data = await request.json()
+    await updateDoc(generateAudioRef("Daniel", data.audioString), {time: data.time})
     return new Response()
 }
