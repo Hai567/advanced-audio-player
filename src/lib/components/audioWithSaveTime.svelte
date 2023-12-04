@@ -18,7 +18,6 @@
         }
         await continueWhereUserLeftOff()
         window.addEventListener("beforeunload", () => saveWhereUserLeftOff(true))
-        // window.addEventListener("unload", () => saveWhereUserLeftOff(true))
     })
     async function saveWhereUserLeftOff(onExit) {
         if (audio){
@@ -32,7 +31,7 @@
     async function continueWhereUserLeftOff() {
         if (audio){
             let savedPlaybackData = (await getDoc(currentAudioRef)).data()
-            audio.currentTime = savedPlaybackData["time"] - audioRewind
+            audio.currentTime = savedPlaybackData["time"]
         }
     }
 </script>
